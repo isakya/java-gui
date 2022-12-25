@@ -2,7 +2,7 @@ package com.kuang.lesson05;
 
 import javax.swing.*;
 import java.awt.*;
-
+// ¶àÑ¡¿ò
 public class JButtonDemo03 extends JFrame {
     public JButtonDemo03() {
         Container container = getContentPane();
