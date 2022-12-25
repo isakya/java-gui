@@ -9,13 +9,13 @@ public class JFrameDemo {
         JFrame jf = new JFrame("这是一个JFrame窗口");
         jf.setVisible(true);
         jf.setBounds(200,200, 400,400);
-        jf.setBackground(Color.CYAN);
+        // 容器实例化，实例化后才能设置背景颜色
+        jf.getContentPane().setBackground(Color.ORANGE);
 
         // 设置文字 JLabel
         JLabel label = new JLabel("izumi");
         jf.add(label);
 
-        // 容器实例化
 
 
         // 关闭事件
