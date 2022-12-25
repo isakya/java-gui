@@ -1,5 +1,4 @@
 package com.kuang.lesson04;
-
 import javax.swing.*;
 import java.awt.*;
 
