@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 // 游戏的面板
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
@@ -15,9 +16,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     int[] snakeX = new int[600]; // 蛇的x坐标 25*25
     int[] snakeY = new int[500]; // 蛇的y坐标 25*25
     String fx; // 初始方向
+    // 食物的坐标
+    int foodx;
+    int foody;
+    Random random = new Random();
     // 游戏当前的状态：开始、停止
     boolean isStart = false; // 默认不开始
-
     // 定时器
     Timer timer = new Timer(100, this); // 100毫秒执行一次
 
@@ -38,6 +42,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         snakeX[1] = 75;snakeY[1] = 100; // 第一个身体的坐标
         snakeX[2] = 50;snakeY[2] = 100; // 第二个身体的坐标
         fx = "R";
+        // 把食物随机分布在界面上
+        foodx = 25 + 25*random.nextInt(34);
+        foody = 75 + 25*random.nextInt(24);
     }
 
     // 绘制面板，游戏中的所有东西，都是用这个画笔来画
@@ -65,6 +72,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         for (int i = 1; i < length; i++) {
             Data.body.paintIcon(this, g, snakeX[i], snakeY[i]); // 蛇身体
         }
+
+        // 食物
+        Data.food.paintIcon(this, g, foodx, foody);
 
         // 游戏状态
         if(isStart == false) {
@@ -99,6 +109,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(isStart) { // 如果游戏是开始状态，就让小蛇动起来！
+            // 吃食物
+            if(snakeX[0] == foodx && snakeY[0] == foody) {
+                length++; // 身体长度 + 1
+                // 再次随机生成食物
+                foodx = 25 + 25*random.nextInt(34);
+                foody = 75 + 25*random.nextInt(24);
+            }
+
             // 移动
             for (int i = length - 1; i > 0; i--) {
                 snakeX[i] = snakeX[i-1]; // 向前移动一节
